@@ -314,9 +314,9 @@ with tab3:
         labels = [s.capitalize() for s in shared_l]
         fig_r = go.Figure()
         fig_r.add_trace(go.Scatterpolar(r=[r1.get(a, 0) for a in shared_l], theta=labels,
-            fill='toself', name=name1, line_color=P1_COLOR, fillcolor=P1_COLOR+"33"))
+            fill='toself', name=name1, line_color=P1_COLOR, fillcolor="rgba(99,102,241,0.15)"))
         fig_r.add_trace(go.Scatterpolar(r=[r2.get(a, 0) for a in shared_l], theta=labels,
-            fill='toself', name=name2, line_color=P2_COLOR, fillcolor=P2_COLOR+"33"))
+            fill='toself', name=name2, line_color=P2_COLOR, fillcolor="rgba(37,99,235,0.15)"))
         fig_r.update_layout(
             polar=dict(bgcolor="#fafbff",
                        radialaxis=dict(visible=True, gridcolor="#e4e7f0", color="#9ca3af"),
