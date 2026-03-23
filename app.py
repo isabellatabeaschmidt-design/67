@@ -88,7 +88,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-P1_COLOR = "#6366f1"   # Indigo
+P1_COLOR = "##F08080"   # Coral
 P2_COLOR = "#2563eb"   # Blue
 
 def mins_to_hm(minutes):
