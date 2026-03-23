@@ -5,7 +5,7 @@ import plotly.graph_objects as go
 import numpy as np
 
 st.set_page_config(
-    page_title="ScreenTime Tracker",
+    page_title="ScreenTime Duo",
     page_icon=None,
     layout="wide",
     initial_sidebar_state="expanded"
@@ -29,7 +29,7 @@ st.markdown("""
     border-radius: 16px;
     padding: 2.2rem 2.8rem;
     margin-bottom: 2rem;
-    border-left: 5px solid #6366f1;
+    border-left: 5px solid #5ececa;
   }
   .hero h1 { color: #1a1d2e; margin: 0 0 .35rem; font-size: 2rem; letter-spacing: -.02em; }
   .hero p  { color: #6b7280; margin: 0; font-size: .95rem; font-weight: 400; }
@@ -47,9 +47,9 @@ st.markdown("""
     font-size: 1.75rem; font-weight: 700; margin: .2rem 0 0; }
   .metric-sub   { color: #d1d5db; font-size: .73rem; margin-top: .2rem; }
 
-  .tag-p1 { background: #ede9fe; color: #6366f1; padding: 3px 12px;
+  .tag-p1 { background: #d1faf8; color: #0d9488; padding: 3px 12px;
     border-radius: 20px; font-size: .8rem; font-weight: 600; }
-  .tag-p2 { background: #dbeafe; color: #2563eb; padding: 3px 12px;
+  .tag-p2 { background: #fce7f3; color: #db2777; padding: 3px 12px;
     border-radius: 20px; font-size: .8rem; font-weight: 600; }
 
   div[data-testid="stSidebar"] {
@@ -65,8 +65,8 @@ st.markdown("""
     font-weight: 600;
   }
   .stTabs [aria-selected="true"] {
-    color: #6366f1 !important;
-    border-bottom: 2px solid #6366f1;
+    color: #5ececa !important;
+    border-bottom: 2px solid #5ececa;
   }
   .stTabs [data-baseweb="tab-panel"] { padding-top: 1.5rem; }
 
@@ -88,8 +88,8 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-P1_COLOR = "##F08080"   # Coral
-P2_COLOR = "#2563eb"   # Blue
+P1_COLOR = "#5ececa"   # Indigo
+P2_COLOR = "#f9a8d4"   # Blue
 
 def mins_to_hm(minutes):
     if pd.isna(minutes): return "—"
@@ -171,7 +171,7 @@ with st.sidebar:
     pseudonym = st.toggle("App-Namen pseudonymisieren", False)
     show_raw  = st.toggle("Rohdaten anzeigen", False)
     st.markdown("---")
-    st.caption("ScreenTime Tracker · Bonusprojekt")
+    st.caption("ScreenTime Duo · Semesterprojekt")
 
 # ── Daten laden ────────────────────────────────────────────────────────────────
 def load(file, name, seed):
@@ -247,7 +247,7 @@ with tab1:
 
     wf = woche_all[woche_all["woche"].isin(fw)]
     fig = px.line(wf, x="woche", y="dauer_minuten", color="person",
-                  color_discrete_map={name1: P1_COLOR, name2: P2_COLOR},
+                  color_discrete_sequence=[P1_COLOR, P2_COLOR],
                   markers=True, labels={"dauer_minuten": "Minuten / Woche", "woche": "KW"})
     fig.update_traces(line_width=2.5, marker_size=7)
     fig.update_layout(**CS, height=360, hovermode="x unified", legend_title_text="",
@@ -258,7 +258,7 @@ with tab1:
     sel_w = st.selectbox("Woche (KW)", weeks, key="tw")
     daily_sel = tag_all[tag_all["woche"] == sel_w]
     fig2 = px.bar(daily_sel, x="datum", y="dauer_minuten", color="person", barmode="group",
-                  color_discrete_map={name1: P1_COLOR, name2: P2_COLOR},
+                  color_discrete_sequence=[P1_COLOR, P2_COLOR],
                   labels={"dauer_minuten": "Minuten", "datum": "Datum"})
     fig2.update_layout(**CS, height=320, margin=dict(t=20, b=20))
     st.plotly_chart(fig2, use_container_width=True)
@@ -314,9 +314,9 @@ with tab3:
         labels = [s.capitalize() for s in shared_l]
         fig_r = go.Figure()
         fig_r.add_trace(go.Scatterpolar(r=[r1.get(a, 0) for a in shared_l], theta=labels,
-            fill='toself', name=name1, line_color=P1_COLOR, fillcolor="rgba(99,102,241,0.15)"))
+            fill='toself', name=name1, line_color=P1_COLOR, fillcolor="rgba(94,206,202,0.2)"))
         fig_r.add_trace(go.Scatterpolar(r=[r2.get(a, 0) for a in shared_l], theta=labels,
-            fill='toself', name=name2, line_color=P2_COLOR, fillcolor="rgba(37,99,235,0.15)"))
+            fill='toself', name=name2, line_color=P2_COLOR, fillcolor="rgba(249,168,212,0.2)"))
         fig_r.update_layout(
             polar=dict(bgcolor="#fafbff",
                        radialaxis=dict(visible=True, gridcolor="#e4e7f0", color="#9ca3af"),
@@ -381,7 +381,7 @@ with tab4:
 
     section("Boxplot — Tageszeiten pro Woche")
     fig6 = px.box(tag_all, x="woche", y="dauer_minuten", color="person",
-                  color_discrete_map={name1: P1_COLOR, name2: P2_COLOR},
+                  color_discrete_sequence=[P1_COLOR, P2_COLOR],
                   labels={"dauer_minuten": "Minuten / Tag", "woche": "KW"})
     fig6.update_layout(**CS, height=380, margin=dict(t=20))
     st.plotly_chart(fig6, use_container_width=True)
