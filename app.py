@@ -5,7 +5,7 @@ import plotly.graph_objects as go
 import numpy as np
 
 st.set_page_config(
-    page_title="ScreenTime Duo",
+    page_title="ScreenTime Tracker",
     page_icon=None,
     layout="wide",
     initial_sidebar_state="expanded"
@@ -160,18 +160,18 @@ def make_demo(person: str, seed: int) -> dict:
 with st.sidebar:
     st.markdown("### Daten hochladen")
     st.markdown('<span class="tag-p1">Person 1</span>', unsafe_allow_html=True)
-    name1 = st.text_input("Name", value="Alice", key="n1")
+    name1 = st.text_input("Name", value="Sarah", key="n1")
     file1 = st.file_uploader("CSV hochladen", type="csv", key="f1")
     st.markdown("---")
     st.markdown('<span class="tag-p2">Person 2</span>', unsafe_allow_html=True)
-    name2 = st.text_input("Name", value="Bob", key="n2")
+    name2 = st.text_input("Name", value="Bella", key="n2")
     file2 = st.file_uploader("CSV hochladen", type="csv", key="f2")
     st.markdown("---")
     st.markdown("### Optionen")
     pseudonym = st.toggle("App-Namen pseudonymisieren", False)
     show_raw  = st.toggle("Rohdaten anzeigen", False)
     st.markdown("---")
-    st.caption("ScreenTime Duo · Semesterprojekt")
+    st.caption("ScreenTime Tracker · Bonusprojekt")
 
 # ── Daten laden ────────────────────────────────────────────────────────────────
 def load(file, name, seed):
